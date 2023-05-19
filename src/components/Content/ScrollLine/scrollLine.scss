@@ -1,0 +1,38 @@
+.scrollLine {
+  position: absolute;
+  top: 300px;
+  left: 20%;
+  height: 1500px;
+  width: 1px;
+  background-color: pink;
+}
+
+.sectionCircle {
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  left: -4.5px;
+  border-radius: 50%;
+  background-color: rgb(15, 0, 0);
+  border: 2px solid pink;
+}
+
+.subSectionName {
+  position: absolute;
+  left: 35px;
+  top: -3px;
+  display: flex;
+  color: rgb(179, 175, 175);
+}
+
+.htmlClosingSection {
+  transform: scale(1, 1.25);
+  margin-left: 5px;
+  color: rgb(179, 175, 175);
+  .greaterThanSection {
+    margin-left: 2px;
+    font-size: 15px;
+    line-height: 19px;
+    position: absolute;
+  } 
+}
