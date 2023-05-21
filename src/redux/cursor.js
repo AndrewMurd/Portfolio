@@ -17,4 +17,4 @@ export const cursorSlice = createSlice({
 
 export const { reset, setVariant } = cursorSlice.actions;
 
-export default cursorSlice.reducer
+export default cursorSlice.reducer;

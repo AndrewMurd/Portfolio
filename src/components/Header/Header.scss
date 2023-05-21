@@ -1,9 +1,13 @@
 $height: 50px;
 
 .header {
-  position: relative;
+  position: fixed;
   top: 5px;
   height: $height;
+  margin-right: 50px;
+  right: 0;
+  transition: top 0.3s ease;
+  z-index: 100;
 }
 
 .linkContainer {
@@ -24,7 +28,7 @@ $height: 50px;
     padding-left: 20px;
     padding-right: 20px;
     &:hover {
-      color: #f9f9f9;
+      color: #f9f9f9 !important;
     }
   }
 }
@@ -37,5 +41,5 @@ $height: 50px;
     font-size: 15px;
     line-height: $height + 1;
     position: absolute;
-  } 
+  }
 }

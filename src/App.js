@@ -41,19 +41,25 @@ function App() {
       width: 19,
       x: mouseXPosition - offSet - 6.5,
       y: mouseYPosition - offSet - 6.5,
+      transition: {
+        duration: 0.04,
+      },
     },
     hover: {
       height: 40,
       width: 40,
       x: mouseXPosition - offSet - 17,
       y: mouseYPosition - offSet - 17,
+      transition: {
+        duration: 0.04,
+        height: {
+          duration: 0.2,
+        },
+        width: {
+          duration: 0.2,
+        }
+      },
     },
-  };
-
-  const spring = {
-    type: "spring",
-    stiffness: 10000,
-    damping: 70,
   };
 
   useEffect(() => {
@@ -653,7 +659,6 @@ context.closePath();
         }
         variants={variants}
         animate={variant}
-        transition={spring}
       />
     </div>
   );

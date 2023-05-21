@@ -7,11 +7,15 @@ body {
 body,
 html {
   color: #f9f9f9;
-  font-family: "Arial", "sans-serif" !important;
+  font-family: 'Roboto', sans-serif;
   font-weight: 400;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+::selection {
+  background-color: rgb(250, 115, 137);
 }
+
+// code {
+//   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+//     monospace;
+// }
