@@ -1,0 +1,39 @@
+.projectContainer {
+  width: auto;
+  height: auto;
+
+  --rX: 0;
+  --rY: 0;
+  --scale: 1;
+  transform: perspective(1000px) rotateX(calc(var(--rX) * 1deg)) rotateY(calc(var(--rY) * 1deg)) scale3d(var(--scale), var(--scale), var(--scale));
+  transform-style: preserve-3d;
+}
+
+.project {
+  position: relative;
+  margin-left: 100px;
+  width: 500px;
+  margin-top: 20px;
+  transform-style: preserve-3d;
+  img {
+    width: 500px;
+  }
+  .metaData {
+    width: 150px;
+    position: absolute;
+    bottom: 40px;
+    left: -70px;
+    transform: translateZ(30px);
+  }
+  h1 {
+    font-size: 25px;
+  }
+  .divider {
+    height: 4px;
+    background-color: #f1f1f1;
+  }
+  .belowDivider {
+    color: grey;
+    margin-top: 5px;
+  }
+}

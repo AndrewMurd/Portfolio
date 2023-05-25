@@ -22,13 +22,15 @@
 }
 
 .sectionContent {
-  position: absolute;
+  position: relative;
   left: 35px;
   top: 50px;
   width: 70vw;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
-#startSection {
+#startSectionContent {
   h1 {
     margin-top: 0px;
     margin-bottom: 15px;

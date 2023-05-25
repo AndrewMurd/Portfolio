@@ -5,48 +5,52 @@ import { setVariant, reset } from "../../redux/cursor";
 
 function Header() {
   const dispatch = useDispatch();
-  let didScroll;
-  const delta = 3;
   const yOffset = -30;
   let lastScrollTop = 0;
+  const delta = 50;
   const [selectedSection, setSelectedSection] = useState("Start");
 
-  const workSectionEl = document.getElementById("workSection");
+  const workSectionEl = document.getElementById("workSectionContainer");
 
   const navigateToStart = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    setSelectedSection('Start');
   };
 
   const navigateToWork = () => {
-    const y = workSectionEl.getBoundingClientRect().top + window.pageYOffset + yOffset;
-    window.scrollTo({ top: y, behavior: "smooth" });
-    setSelectedSection('Work');
+    const workSectionTop =
+      workSectionEl.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: workSectionTop, behavior: "smooth" });
   };
 
-  document.addEventListener("scroll", (event) => {
-    didScroll = true;
-  });
+  window.addEventListener("scroll", () => {
+    const currentScroll = window.pageYOffset;
 
-  setInterval(() => {
-    if (didScroll) {
-      hasScrolled();
-      didScroll = false;
+    if (workSectionEl) {
+      const workSectionTop =
+        workSectionEl.getBoundingClientRect().top + currentScroll + yOffset;
+      if (currentScroll < workSectionTop) {
+        setSelectedSection("Start");
+      } else if (currentScroll >= workSectionTop) {
+        setSelectedSection("Work");
+      }
     }
-  }, 250);
 
-  const hasScrolled = () => {
-    let st = document.documentElement.scrollTop;
-    if (Math.abs(lastScrollTop - st) <= delta) return;
-    if (st > lastScrollTop) {
-      // Scroll Down
+    if (currentScroll <= 0) {
+      document.getElementById("header").style.top = "5px";
+      return;
+    }
+
+    if (Math.abs(currentScroll - lastScrollTop) > delta) return;
+
+    if (currentScroll > lastScrollTop) {
+      // down
       document.getElementById("header").style.top = "-40px";
-    } else {
-      // Scroll Up
+    } else if (currentScroll < lastScrollTop) {
+      // up
       document.getElementById("header").style.top = "5px";
     }
-    lastScrollTop = st;
-  };
+    lastScrollTop = currentScroll;
+  });
 
   return (
     <div id="header" className="header">

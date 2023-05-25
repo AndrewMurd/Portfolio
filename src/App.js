@@ -41,6 +41,7 @@ function App() {
       width: 19,
       x: mouseXPosition - offSet - 6.5,
       y: mouseYPosition - offSet - 6.5,
+      mixBlendMode: "difference",
       transition: {
         duration: 0.04,
       },
@@ -50,6 +51,7 @@ function App() {
       width: 40,
       x: mouseXPosition - offSet - 17,
       y: mouseYPosition - offSet - 17,
+      mixBlendMode: "difference",
       transition: {
         duration: 0.04,
         height: {

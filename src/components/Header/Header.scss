@@ -2,18 +2,19 @@ $height: 50px;
 
 .header {
   position: fixed;
-  top: 5px;
-  height: $height;
-  margin-right: 50px;
-  right: 0;
-  transition: top 0.3s ease;
+  height: calc($height + 5px);
+  top: 0px;
+  transition: top 0.3s;
   z-index: 100;
+  width: 100vw;
 }
 
 .linkContainer {
+  position: fixed;
+  right: 0;
+  top: 5px;
+  margin-right: 50px;
   height: $height;
-  margin-left: auto;
-  margin-right: auto;
   width: fit-content;
   display: flex;
   justify-content: center;
