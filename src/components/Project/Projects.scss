@@ -5,7 +5,9 @@
   --rX: 0;
   --rY: 0;
   --scale: 1;
-  transform: perspective(1000px) rotateX(calc(var(--rX) * 1deg)) rotateY(calc(var(--rY) * 1deg)) scale3d(var(--scale), var(--scale), var(--scale));
+  transform: perspective(1000px) rotateX(calc(var(--rX) * 1deg))
+    rotateY(calc(var(--rY) * 1deg))
+    scale3d(var(--scale), var(--scale), var(--scale));
   transform-style: preserve-3d;
 }
 
@@ -15,6 +17,19 @@
   width: 500px;
   margin-top: 20px;
   transform-style: preserve-3d;
+  .shade {
+    position: absolute;
+    background: linear-gradient(
+      30deg,
+      rgba(39, 38, 42, 1) 0%,
+      rgba(255, 255, 255, 0) 40%
+    );
+    z-index: 2;
+    height: calc(100% - 4px);
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
   img {
     width: 500px;
   }

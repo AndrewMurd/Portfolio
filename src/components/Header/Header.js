@@ -6,9 +6,8 @@ import { setVariant, reset } from "../../redux/cursor";
 function Header() {
   const dispatch = useDispatch();
   const yOffset = -30;
-  let lastScrollTop = 0;
-  const delta = 50;
   const [selectedSection, setSelectedSection] = useState("Start");
+  const [scrollDirection, setScrollDirection] = useState(null);
 
   const workSectionEl = document.getElementById("workSectionContainer");
 
@@ -22,38 +21,41 @@ function Header() {
     window.scrollTo({ top: workSectionTop, behavior: "smooth" });
   };
 
-  window.addEventListener("scroll", () => {
-    const currentScroll = window.pageYOffset;
+  useEffect(() => {
+    let lastScrollY = window.pageYOffset;
 
-    if (workSectionEl) {
-      const workSectionTop =
-        workSectionEl.getBoundingClientRect().top + currentScroll + yOffset;
-      if (currentScroll < workSectionTop) {
-        setSelectedSection("Start");
-      } else if (currentScroll >= workSectionTop) {
-        setSelectedSection("Work");
+    const updateScrollDirection = () => {
+      const scrollY = window.pageYOffset;
+
+      if (workSectionEl) {
+        const workSectionTop =
+          workSectionEl.getBoundingClientRect().top + scrollY + yOffset;
+        if (scrollY < workSectionTop) {
+          setSelectedSection("Start");
+        } else if (scrollY >= workSectionTop) {
+          setSelectedSection("Work");
+        }
       }
-    }
 
-    if (currentScroll <= 0) {
-      document.getElementById("header").style.top = "5px";
-      return;
-    }
-
-    if (Math.abs(currentScroll - lastScrollTop) > delta) return;
-
-    if (currentScroll > lastScrollTop) {
-      // down
-      document.getElementById("header").style.top = "-40px";
-    } else if (currentScroll < lastScrollTop) {
-      // up
-      document.getElementById("header").style.top = "5px";
-    }
-    lastScrollTop = currentScroll;
-  });
+      const direction = scrollY > lastScrollY ? "down" : "up";
+      if (direction !== scrollDirection) {
+        setScrollDirection(direction);
+      }
+      lastScrollY = scrollY > 0 ? scrollY : 0;
+    };
+    window.addEventListener("scroll", updateScrollDirection);
+    return () => {
+      window.removeEventListener("scroll", updateScrollDirection);
+    };
+  }, [scrollDirection]);
 
   return (
-    <div id="header" className="header">
+    <div
+      id="header"
+      className="header"
+      style={{ top: scrollDirection == "down" ? "-40px" : "0px" }}
+    >
+      <div className="headerShade"></div>
       <div
         onMouseEnter={() => {
           dispatch(setVariant("hover"));
