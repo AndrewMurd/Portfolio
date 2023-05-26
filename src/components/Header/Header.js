@@ -38,9 +38,7 @@ function Header() {
       }
 
       const direction = scrollY > lastScrollY ? "down" : "up";
-      if (direction !== scrollDirection) {
-        setScrollDirection(direction);
-      }
+      if (direction !== scrollDirection) setScrollDirection(direction);
       lastScrollY = scrollY > 0 ? scrollY : 0;
     };
     window.addEventListener("scroll", updateScrollDirection);

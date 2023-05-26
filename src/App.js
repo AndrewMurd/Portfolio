@@ -16,41 +16,34 @@ function App() {
   let endX = useRef(0);
   let endY = useRef(0);
 
-  const mouseMoveHandler = useCallback(({ clientX, clientY }) => {
+  const mouseMoveHandler = ({ clientX, clientY }) => {
     setCoords({ x: clientX, y: clientY });
     cursorInnerRef.current.style.top = clientY + "px";
     cursorInnerRef.current.style.left = clientX + "px";
     endX.current = clientX;
     endY.current = clientY;
-  }, []);
+  };
 
-  const animateOuterCursor = useCallback(
-    (time) => {
-      if (previousTimeRef.current !== undefined) {
-        coords.x += (endX.current - coords.x) / 8;
-        coords.y += (endY.current - coords.y) / 8;
-        // if (variant == "default") {
-        //   offsetRef.current -= (offsetRef.current - 6.5) / 8;
-        // } else {
-        //   offsetRef.current += (17 - offsetRef.current) / 8;
-        // }
-        if (variant == "default") {
-          offsetRef.current = 6.5;
-        } else {
-          offsetRef.current = 17;
-        }
-        cursorOuterRef.current.style.top = coords.y - offsetRef.current + "px";
-        cursorOuterRef.current.style.left = coords.x - offsetRef.current + "px";
+  const animateOuterCursor = (time) => {
+    if (previousTimeRef.current !== undefined) {
+      coords.x += (endX.current - coords.x) / 5;
+      coords.y += (endY.current - coords.y) / 5;
+      if (variant == "default") {
+        offsetRef.current -= (offsetRef.current - 6.5) / 10;
+      } else {
+        offsetRef.current += (22.5 - offsetRef.current) / 10;
       }
-      previousTimeRef.current = time;
-      requestRef.current = requestAnimationFrame(animateOuterCursor);
-    },
-    [requestRef, variant]
-  );
+      cursorOuterRef.current.style.top = coords.y - offsetRef.current + "px";
+      cursorOuterRef.current.style.left = coords.x - offsetRef.current + "px";
+    }
+    previousTimeRef.current = time;
+    requestRef.current = requestAnimationFrame(animateOuterCursor);
+  };
 
   useEffect(() => {
     requestRef.current = requestAnimationFrame(animateOuterCursor);
-  }, [animateOuterCursor]);
+    return () => cancelAnimationFrame(requestRef.current);
+  }, [requestRef, variant]);
 
   useEffect(() => {
     /**
