@@ -1,68 +1,56 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import "./App.scss";
-import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
-import useMouse from "@react-hook/mouse-position";
 
 import Header from "./components/Header/Header";
 import ScrollLine from "./components/Content/ScrollLine/scrollLine";
 
 function App() {
   const { variant } = useSelector((state) => state.cursor);
-  const offSet = 5;
-  const containerRef = useRef();
-  const mouse = useMouse(containerRef, {
-    enterDelay: 0,
-    leaveDelay: 0,
-  });
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
+  const cursorInnerRef = useRef();
+  const cursorOuterRef = useRef();
+  const requestRef = useRef();
+  const previousTimeRef = useRef();
+  const offsetRef = useRef(6.5);
+  let endX = useRef(0);
+  let endY = useRef(0);
 
-  let mouseXPosition = 0;
-  let mouseYPosition = 0;
+  const mouseMoveHandler = useCallback(({ clientX, clientY }) => {
+    setCoords({ x: clientX, y: clientY });
+    cursorInnerRef.current.style.top = clientY + "px";
+    cursorInnerRef.current.style.left = clientX + "px";
+    endX.current = clientX;
+    endY.current = clientY;
+  }, []);
 
-  if (mouse.x !== null) {
-    mouseXPosition = mouse.clientX;
-  }
-
-  if (mouse.y !== null) {
-    mouseYPosition = mouse.clientY;
-  }
-
-  const mouseMove = (e) => {
-    let circle = document.getElementById("InsideCircle");
-    let left = e.clientX - offSet;
-    let top = e.clientY - offSet;
-    circle.style.left = left + "px";
-    circle.style.top = top + "px";
-  };
-
-  const variants = {
-    default: {
-      height: 19,
-      width: 19,
-      x: mouseXPosition - offSet - 6.5,
-      y: mouseYPosition - offSet - 6.5,
-      mixBlendMode: "difference",
-      transition: {
-        duration: 0.04,
-      },
-    },
-    hover: {
-      height: 40,
-      width: 40,
-      x: mouseXPosition - offSet - 17,
-      y: mouseYPosition - offSet - 17,
-      mixBlendMode: "difference",
-      transition: {
-        duration: 0.04,
-        height: {
-          duration: 0.2,
-        },
-        width: {
-          duration: 0.2,
+  const animateOuterCursor = useCallback(
+    (time) => {
+      if (previousTimeRef.current !== undefined) {
+        coords.x += (endX.current - coords.x) / 8;
+        coords.y += (endY.current - coords.y) / 8;
+        // if (variant == "default") {
+        //   offsetRef.current -= (offsetRef.current - 6.5) / 8;
+        // } else {
+        //   offsetRef.current += (17 - offsetRef.current) / 8;
+        // }
+        if (variant == "default") {
+          offsetRef.current = 6.5;
+        } else {
+          offsetRef.current = 17;
         }
-      },
+        cursorOuterRef.current.style.top = coords.y - offsetRef.current + "px";
+        cursorOuterRef.current.style.left = coords.x - offsetRef.current + "px";
+      }
+      previousTimeRef.current = time;
+      requestRef.current = requestAnimationFrame(animateOuterCursor);
     },
-  };
+    [requestRef, variant]
+  );
+
+  useEffect(() => {
+    requestRef.current = requestAnimationFrame(animateOuterCursor);
+  }, [animateOuterCursor]);
 
   useEffect(() => {
     /**
@@ -650,17 +638,18 @@ context.closePath();
   }, []);
 
   return (
-    <div className="app" ref={containerRef} onMouseMove={mouseMove}>
+    <div className="app" onMouseMove={mouseMoveHandler}>
       <canvas id="stars"></canvas>
       <Header></Header>
       <ScrollLine></ScrollLine>
-      <div id="InsideCircle" className="insideCircle"></div>
-      <motion.div
+      <div ref={cursorInnerRef} className="insideCircle"></div>
+      <div
+        ref={cursorOuterRef}
         className={
-          variant === "default" ? "outsideCircle" : "outsideCircle largerBorder"
+          variant === "default"
+            ? "outsideCircle default"
+            : "outsideCircle hover"
         }
-        variants={variants}
-        animate={variant}
       />
     </div>
   );
