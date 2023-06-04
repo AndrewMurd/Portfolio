@@ -18,6 +18,7 @@
   margin-top: 20px;
   transform-style: preserve-3d;
   .shade {
+    transform-origin: left;
     position: absolute;
     background: linear-gradient(
       30deg,
@@ -32,6 +33,7 @@
   }
   img {
     width: 500px;
+    transform-origin: left;
   }
   .metaData {
     width: 150px;
@@ -50,5 +52,63 @@
   .belowDivider {
     color: grey;
     margin-top: 5px;
+  }
+}
+
+.animationContainer {
+  transform-origin: left;
+}
+
+.enter {
+  animation: enter 0.4s ease-in-out forwards;
+}
+
+.exit {
+  animation: exit 0.1s ease-in 0.35s forwards;
+}
+
+.coverAnimation {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #f1f1f1;
+  z-index: 3;
+  animation: cover 0.7s ease-in forwards;
+  transform-origin: left;
+}
+
+@keyframes cover {
+  0% {
+    transform: translateX(500px) scaleX(0);
+  }
+  50% {
+    transform: translateX(0px) scaleX(1);
+  }
+  100% {
+    transform: translateX(0px) scaleX(0);
+  }
+}
+
+.initState {
+  opacity: 0;
+}
+
+@keyframes enter {
+  from {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes exit {
+  0% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
   }
 }

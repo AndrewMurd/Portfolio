@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./Projects.scss";
 import { setVariant, reset } from "../../redux/cursor";
 import { useDispatch } from "react-redux";
@@ -11,6 +11,9 @@ function Project({ title, img, num }) {
   const maxRotation = 20;
   const scale = 1.05;
   const transitionSpeed = 300;
+  const initOffset = 100;
+  const [animationState, setAnimationState] = useState(false);
+  const [isInit, setIsInit] = useState(false);
 
   const handleMouseEnter = (e) => {
     setTransition();
@@ -37,7 +40,10 @@ function Project({ title, img, num }) {
     containerRef.current.style.setProperty("--rX", rotateX.toFixed(2));
     containerRef.current.style.setProperty("--rY", -rotateY.toFixed(2));
     containerRef.current.style.setProperty("--scale", scale);
-    shadeRef.current.style.setProperty("box-shadow", "rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px");
+    shadeRef.current.style.setProperty(
+      "box-shadow",
+      "rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px"
+    );
   };
 
   const defaultStates = () => {
@@ -58,6 +64,27 @@ function Project({ title, img, num }) {
     }, transitionSpeed);
   };
 
+  const handleMouseClick = () => {
+    setAnimationState(true);
+  };
+
+  const handleScroll = () => {
+    const rect = containerRef.current.getBoundingClientRect();
+    if (
+      rect.top - window.innerHeight + initOffset <= 0 &&
+      rect.top >= -initOffset
+    ) {
+      setIsInit(true);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <div
       className="projectContainer"
@@ -65,6 +92,7 @@ function Project({ title, img, num }) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
+      onClick={handleMouseClick}
     >
       <div
         className="project"
@@ -75,13 +103,27 @@ function Project({ title, img, num }) {
           dispatch(reset());
         }}
       >
-        <div ref={shadeRef} className="shade"></div>
+        <div className={animationState ? "coverAnimation" : ""}></div>
+        <div
+          ref={shadeRef}
+          className={
+            isInit
+              ? animationState
+                ? "shade exit"
+                : " shade enter"
+              : "shade initState"
+          }
+        ></div>
         <div className="metaData">
           <h1>{title}</h1>
           <div className="divider"></div>
           <div className="belowDivider">{num}</div>
         </div>
-        <img src={img} alt=""></img>
+        <img
+          className={isInit ? (animationState ? "exit" : "enter") : "initState"}
+          src={img}
+          alt=""
+        ></img>
       </div>
     </div>
   );
