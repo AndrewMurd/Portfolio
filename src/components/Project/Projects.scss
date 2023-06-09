@@ -35,12 +35,16 @@
     width: 500px;
     transform-origin: left;
   }
-  .metaData {
-    width: 150px;
+  .metaDataContainer {
     position: absolute;
     bottom: 40px;
-    left: -70px;
-    transform: translateZ(30px);
+    left: -80px;
+    width: 150px;
+    transform-style: preserve-3d;
+  }
+  .metaData {
+    transform: translateZ(40px);
+    transform-origin: left;
   }
   h1 {
     font-size: 25px;
@@ -55,29 +59,43 @@
   }
 }
 
-.animationContainer {
-  transform-origin: left;
+.enterImg {
+  animation: enterImg 0.4s ease-in-out forwards;
 }
 
-.enter {
-  animation: enter 0.4s ease-in-out forwards;
-}
-
-.exit {
+.exitImg {
   animation: exit 0.1s ease-in 0.35s forwards;
 }
 
-.coverAnimation {
+.coverAnimationImg {
   position: absolute;
   width: 100%;
   height: 100%;
   background-color: #f1f1f1;
   z-index: 3;
-  animation: cover 0.7s ease-in forwards;
+  animation: coverImg 0.7s ease-in forwards;
   transform-origin: left;
 }
 
-@keyframes cover {
+.coverAnimationMetaData {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgb(73, 0, 0);
+  z-index: 5;
+  animation: coverMetaData 0.7s ease-in forwards;
+  transform-origin: left;
+}
+
+.exitMetaData {
+  animation: exit 0.01s ease-in 0.35s forwards;
+}
+
+.initState {
+  opacity: 0;
+}
+
+@keyframes coverImg {
   0% {
     transform: translateX(500px) scaleX(0);
   }
@@ -89,11 +107,19 @@
   }
 }
 
-.initState {
-  opacity: 0;
+@keyframes coverMetaData {
+  0% {
+    transform: translateZ(40px) translateX(170px) scaleX(0);
+  }
+  50% {
+    transform: translateZ(40px) translateX(0px) scaleX(1);
+  }
+  100% {
+    transform: translateZ(40px) translateX(0px) scaleX(0);
+  }
 }
 
-@keyframes enter {
+@keyframes enterImg {
   from {
     transform: translateX(-100px);
     opacity: 0;

@@ -1,0 +1,30 @@
+{
+  "MyGolfr": {
+    "posterImg": "/assets/MyGolfrHome.png",
+    "images": [
+      "/assets/MyGolfrHome.png",
+      "/assets/MyGolfrHome.png",
+      "/assets/MyGolfrHome.png"
+    ],
+    "desc": "Golf Tracking App",
+    "stack": [
+      "Angular",
+      "Typescript",
+      "SCSS",
+      "SQL",
+      "Node.js",
+      "GoogleMapsAPI"
+    ]
+  },
+  "Amazon Clone": {
+    "posterImg": "/assets/AmazonCloneHome.png",
+    "images": [],
+    "desc": "E-Commerce Website with themes inspired by Amazon.com",
+    "stack": [
+      "React",
+      "JS",
+      "Firebase",
+      "Stripe"
+    ]
+  }
+}

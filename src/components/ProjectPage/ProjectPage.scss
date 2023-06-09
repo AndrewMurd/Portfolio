@@ -1,0 +1,139 @@
+.leftSideView {
+  position: absolute;
+  width: 66vw;
+  height: auto;
+  img {
+    width: 100%;
+  }
+}
+
+@keyframes rightViewEnter {
+  from {
+    transform: translateX(10vw);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+.rightSideView {
+  background-color: var(--backgroundColor);
+  height: 100vh;
+  width: 34vw;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  animation: rightViewEnter 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) 0.01s
+    forwards;
+  .metaDataProjectPage {
+    margin-left: 40px;
+    margin-top: 40px;
+    h1 {
+      font-size: 30px;
+    }
+  }
+  .projectStack {
+    margin-top: 15px;
+    color: grey;
+    display: flex;
+    flex-wrap: wrap;
+    div {
+      margin-top: 10px;
+      margin-right: 5px;
+      font-size: 20px;
+    }
+  }
+  .visitBtn {
+    margin-top: 40px;
+    width: 60px;
+    background: linear-gradient(-45deg, #30a326, #202299, #a81e9d, #880000);
+    background-size: 1100%;
+    border: none;
+    border-radius: 50px;
+    color: hsla(0, 0%, 100%, 0.9);
+    font-size: 25px;
+    line-height: 1;
+    padding: 13px 25px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    transform: scale(1);
+  }
+  .projectTitle {
+  }
+  .projectDesc {
+    color: rgb(212, 212, 212);
+  }
+}
+
+.backBtn {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  transition: 0.5s;
+  overflow: hidden;
+  border: solid 2px transparent;
+  &:hover {
+    border: solid 2px white;
+    border-radius: 50%;
+  }
+  &::after {
+    position: absolute;
+    display: block;
+    content: "";
+    color: white;
+    width: 20px;
+    height: 15px;
+    top: -1px;
+    border-bottom: solid 2px;
+    transform: translatex(4px);
+    &:hover {
+      animation: aniArrow02 1s cubic-bezier(0, 0.6, 1, 0.4) infinite 0.5s;
+    }
+  }
+  &::before {
+    position: absolute;
+    display: block;
+    content: "";
+    color: white;
+    width: 8px;
+    height: 8px;
+    border-top: solid 2px;
+    border-left: solid 2px;
+    top: 50%;
+    left: 2px;
+    transform-origin: 0% 0%;
+    transform: rotatez(-45deg);
+    &:hover {
+      animation: aniArrow01 1s cubic-bezier(0, 0.6, 1, 0.4) infinite 0.5s;
+    }
+  }
+}
+
+@keyframes aniArrow01 {
+  0% {
+    transform: rotatez(-45deg) translateY(30px) translateX(30px);
+  }
+  100% {
+    transform: rotatez(-45deg) translateY(-35px) translateX(-35px);
+  }
+}
+
+@keyframes aniArrow02 {
+  0% {
+    transform: translateX(45px);
+  }
+  100% {
+    transform: translateX(-44px);
+  }
+}
+
+@keyframes borderAni {
+  0% {
+    border: solid 2px white;
+  }
+  100% {
+    border: solid 2px white;
+    border-radius: 50%;
+  }
+}

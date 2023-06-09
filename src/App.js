@@ -1,12 +1,15 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./App.scss";
 import { useSelector } from "react-redux";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header/Header";
-import ScrollLine from "./components/Content/ScrollLine/scrollLine";
+import ScrollLine from "./components/ScrollLine/scrollLine";
+import ProjectPage from "./components/ProjectPage/ProjectPage";
 
 function App() {
   const { variant } = useSelector((state) => state.cursor);
+  const { animationState } = useSelector((state) => state.animation);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const cursorInnerRef = useRef();
   const cursorOuterRef = useRef();
@@ -631,20 +634,33 @@ context.closePath();
   }, []);
 
   return (
-    <div className="app" onMouseMove={mouseMoveHandler}>
-      <canvas id="stars"></canvas>
-      <Header></Header>
-      <ScrollLine></ScrollLine>
-      <div ref={cursorInnerRef} className="insideCircle"></div>
-      <div
-        ref={cursorOuterRef}
-        className={
-          variant === "default"
-            ? "outsideCircle default"
-            : "outsideCircle hover"
-        }
-      />
-    </div>
+    <BrowserRouter>
+      <div className="app" onMouseMove={mouseMoveHandler}>
+        <canvas id="stars"></canvas>
+        <div className={animationState ? "screenCover" : ""}></div>
+        <div className={animationState ? "innerScreenCover" : ""}></div>
+        <div ref={cursorInnerRef} className="insideCircle"></div>
+        <div
+          ref={cursorOuterRef}
+          className={
+            variant === "default"
+              ? "outsideCircle default"
+              : "outsideCircle hover"
+          }
+        />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div>
+                <Header /> <ScrollLine />
+              </div>
+            }
+          />
+          <Route path="/projects/:id" element={<ProjectPage />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

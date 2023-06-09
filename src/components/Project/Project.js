@@ -1,10 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./Projects.scss";
 import { setVariant, reset } from "../../redux/cursor";
+import { startCoverAnimation, resetAnimState } from "../../redux/animation";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Project({ title, img, num }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const containerRef = useRef(null);
   const shadeRef = useRef(null);
   let timeout;
@@ -60,12 +63,20 @@ function Project({ title, img, num }) {
       `all ${transitionSpeed}ms cubic-bezier(0.03, 0.98, 0.52, 0.99)`
     );
     timeout = setTimeout(() => {
-      containerRef.current.style.setProperty("transition", ``);
+      containerRef.current?.style.setProperty("transition", ``);
     }, transitionSpeed);
   };
 
   const handleMouseClick = () => {
     setAnimationState(true);
+    setTimeout(() => {
+      dispatch(startCoverAnimation());
+      setTimeout(() => {
+        dispatch(resetAnimState());
+        navigate(`/projects/${title}`);
+        dispatch(reset());
+      }, 600);
+    }, 700);
   };
 
   const handleScroll = () => {
@@ -103,24 +114,31 @@ function Project({ title, img, num }) {
           dispatch(reset());
         }}
       >
-        <div className={animationState ? "coverAnimation" : ""}></div>
+        <div className={animationState ? "coverAnimationImg" : ""}></div>
         <div
           ref={shadeRef}
           className={
             isInit
               ? animationState
-                ? "shade exit"
-                : " shade enter"
+                ? "shade exitImg"
+                : " shade enterImg"
               : "shade initState"
           }
         ></div>
-        <div className="metaData">
-          <h1>{title}</h1>
-          <div className="divider"></div>
-          <div className="belowDivider">{num}</div>
+        <div className="metaDataContainer">
+          <div className={animationState ? "coverAnimationMetaData" : ""}></div>
+          <div
+            className={animationState ? "exitMetaData metaData" : "metaData"}
+          >
+            <h1>{title}</h1>
+            <div className="divider"></div>
+            <div className="belowDivider">{num}</div>
+          </div>
         </div>
         <img
-          className={isInit ? (animationState ? "exit" : "enter") : "initState"}
+          className={
+            isInit ? (animationState ? "exitImg" : "enterImg") : "initState"
+          }
           src={img}
           alt=""
         ></img>

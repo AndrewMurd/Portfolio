@@ -1,10 +1,11 @@
 import React from "react";
 import "./scrollLine.scss";
-import MyGolfrHome from "../../../assets/MyGolfrHome.png";
-import AmazonCloneHome from '../../../assets/AmazonCloneHome.png'
-import Project from "../../Project/Project";
+import Project from "../Project/Project";
+import Projects from "../../projects.json";
 
 function ScrollLine() {
+  var projectArr = [];
+
   return (
     <div className="scrollLine">
       <div
@@ -46,8 +47,19 @@ function ScrollLine() {
             </div>
           </span>
           <div className="sectionContent flex">
-            <Project title={"MyGolfr"} img={MyGolfrHome} num={"01"}></Project>
-            <Project title={"Amazon Clone"} img={AmazonCloneHome} num={"02"}></Project>
+            {Object.entries(Projects).forEach((value) => {
+              projectArr.push(value);
+            })}
+            {projectArr.map((value, index) => {
+              return (
+                <Project
+                  key={index}
+                  title={value[0]}
+                  img={value[1].posterImg}
+                  num={`0${index}`}
+                ></Project>
+              );
+            })}
           </div>
         </div>
       </div>

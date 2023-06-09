@@ -2,11 +2,12 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 body,
 html {
-  color: #f1f1f1;
+  color: var(--fontColor);
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
 }
@@ -19,7 +20,8 @@ html {
   display: flex;
 }
 
-// code {
-//   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-//     monospace;
-// }
+// global scss variables
+:root {
+  --backgroundColor: rgb(15, 0, 0);
+  --fontColor: #f1f1f1; 
+}

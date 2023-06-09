@@ -2,11 +2,54 @@
   cursor: none;
 }
 
+@keyframes coverAnime {
+  from {
+    width: 100vw;
+    height: 100vh;
+    transform: translateX(-100vw);
+  }
+  to {
+    width: 100vw;
+    height: 100vh;
+    transform: translateX(0vw);
+  }
+}
+@keyframes innerCoverAnime {
+  from {
+    width: 100vw;
+    height: 100vh;
+    transform: translateX(-100vw);
+  }
+  to {
+    width: 100vw;
+    height: 100vh;
+    transform: translateX(0vw);
+  }
+}
+
+.screenCover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--backgroundColor);
+  animation: coverAnime 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) 0.1s backwards;
+  z-index: 101;
+}
+.innerScreenCover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #310404;
+  animation: innerCoverAnime 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) 0.01s
+    backwards;
+  z-index: 100;
+}
+
 #stars {
   position: fixed;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
-  background-color: rgb(15, 0, 0);
+  background-color: var(--backgroundColor);
 }
 
 .insideCircle {
