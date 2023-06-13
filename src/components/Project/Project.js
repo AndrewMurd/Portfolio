@@ -68,6 +68,7 @@ function Project({ title, img, num }) {
   };
 
   const handleMouseClick = () => {
+    localStorage.setItem('homeScrollPos', window.scrollY);
     setAnimationState(true);
     setTimeout(() => {
       dispatch(startCoverAnimation());
@@ -91,6 +92,7 @@ function Project({ title, img, num }) {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };

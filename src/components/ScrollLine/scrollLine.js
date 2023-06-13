@@ -1,17 +1,21 @@
-import React from "react";
+import { useEffect } from "react";
 import "./scrollLine.scss";
 import Project from "../Project/Project";
+import About from "../AboutSection/About";
 import Projects from "../../projects.json";
 
 function ScrollLine() {
   var projectArr = [];
+
+  useEffect(() => {
+    window.scrollTo(0, localStorage.getItem('homeScrollPos'))
+  }, [])
 
   return (
     <div className="scrollLine">
       <div
         id="startSectionContainer"
         className="sectionContainer"
-        style={{ top: "0px" }}
       >
         <div className="sectionCircle"></div>
         <span>
@@ -34,7 +38,6 @@ function ScrollLine() {
       <div
         id="workSectionContainer"
         className="sectionContainer"
-        style={{ top: "660px" }}
       >
         <div className="sectionCircle">
           <span>
@@ -46,7 +49,8 @@ function ScrollLine() {
               </span>
             </div>
           </span>
-          <div className="sectionContent flex">
+        </div>
+        <div className="sectionContent flex">
             {Object.entries(Projects).forEach((value) => {
               projectArr.push(value);
             })}
@@ -60,6 +64,24 @@ function ScrollLine() {
                 ></Project>
               );
             })}
+          </div>
+      </div>
+      <div
+        id="aboutSectionContainer"
+        className="sectionContainer"
+      >
+        <div className="sectionCircle">
+          <span>
+            <div className="subSectionName">
+              About{" "}
+              <span className="htmlClosingSection">
+                <span>/</span>
+                <span className="greaterThanSection">{">"}</span>
+              </span>
+            </div>
+          </span>
+          <div className="sectionContent">
+            <About></About>
           </div>
         </div>
       </div>

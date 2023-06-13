@@ -1,0 +1,78 @@
+.class {
+  font-family: Consolas;
+  font-size: 20px;
+}
+
+.space {
+  margin-right: 12px;
+}
+
+.codeLine {
+  margin-top: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  .lineNum {
+    color: grey;
+    font-weight: 100;
+    left: -70px;
+    position: absolute;
+  }
+}
+
+.greenFont {
+  color: rgb(90, 189, 148);
+}
+
+.blueFont {
+  color: rgb(0, 17, 255);
+}
+
+.yellowFont {
+  color: rgb(224, 217, 114);
+}
+
+.lightBlueFont {
+  color: rgb(0, 195, 255);
+}
+
+.pinkFont {
+  color: rgb(139, 32, 107);
+}
+
+.orangeFont {
+  color: rgb(253, 152, 70);
+}
+
+.numberFont {
+  color: rgb(144, 221, 56);
+}
+
+.dot {
+  color: grey;
+  line-height: 23px;
+  margin-left: 4px;
+  margin-right: 4px;
+  font-size: 10px;
+}
+
+.flashingCursor {
+  position: absolute;
+  margin-left: 5px;
+  margin-top: 3px;
+  background-color: var(--fontColor);
+  height: 18px;
+  width: 1.5px;
+  animation: flashingCursor 0.9s ease infinite;
+}
+
+@keyframes flashingCursor {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

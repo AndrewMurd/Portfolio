@@ -1,7 +1,13 @@
 .leftSideView {
+  // overflow: auto;
   position: absolute;
   width: 66vw;
-  height: auto;
+  height: 100vh;
+  // -ms-overflow-style: none;
+  // scrollbar-width: none;
+  // &::-webkit-scrollbar {
+  //   display: none;
+  // }
   img {
     width: 100%;
   }
@@ -28,6 +34,7 @@
   .metaDataProjectPage {
     margin-left: 40px;
     margin-top: 40px;
+    width: calc(100% - 80px);
     h1 {
       font-size: 30px;
     }
@@ -43,26 +50,62 @@
       font-size: 20px;
     }
   }
-  .visitBtn {
-    margin-top: 40px;
+  .visitBtnContainer {
+    position: relative;
+  }
+  .visitBtnBackground, .visitBtn {
+    transition: background-position 3s ease, transform 0.2s ease;
+    margin-top: 25px;
     width: 60px;
     background: linear-gradient(-45deg, #30a326, #202299, #a81e9d, #880000);
     background-size: 1100%;
+    background-position: 0%;
     border: none;
     border-radius: 50px;
     color: hsla(0, 0%, 100%, 0.9);
     font-size: 25px;
     line-height: 1;
     padding: 13px 25px;
-    position: relative;
+    position: absolute;
     text-align: center;
     text-transform: uppercase;
-    transform: scale(1);
   }
-  .projectTitle {
+  .visitBtn {
+    z-index: 1;
+    &:hover {
+      background-position: 100%;
+      transform: scale(1.1) translateY(-2px); 
+    }
+  }
+  .visitBtnBackground {
+    filter: blur(16px);
+    width: 60px;
+    height: 20px;
+    position: absolute;
+    left: 0px;
+    top: 10px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
   }
   .projectDesc {
+    font-size: 18px;
     color: rgb(212, 212, 212);
+    word-break: break-word;
+    white-space: normal;
+    line-height: 1.6;
+  }
+  .numLine {
+    position: absolute;
+    margin-left: 40px;
+    bottom: 50px;
+    height: 3px;
+    width: calc(100% - 120px);
+    background-color: var(--fontColor);
+    span {
+      position: absolute;
+      top: -7px;
+      right: -40px;
+      font-family: Consolas;
+    }
   }
 }
 

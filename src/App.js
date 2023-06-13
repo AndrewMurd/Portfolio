@@ -15,9 +15,13 @@ function App() {
   const cursorOuterRef = useRef();
   const requestRef = useRef();
   const previousTimeRef = useRef();
-  const offsetRef = useRef(6.5);
+  const offsetRef = useRef(7);
   let endX = useRef(0);
   let endY = useRef(0);
+
+  window.onbeforeunload = () => {
+    localStorage.removeItem('homeScrollPos')
+  }
 
   const mouseMoveHandler = ({ clientX, clientY }) => {
     setCoords({ x: clientX, y: clientY });
@@ -32,7 +36,7 @@ function App() {
       coords.x += (endX.current - coords.x) / 5;
       coords.y += (endY.current - coords.y) / 5;
       if (variant == "default") {
-        offsetRef.current -= (offsetRef.current - 6.5) / 10;
+        offsetRef.current -= (offsetRef.current - 7) / 10;
       } else {
         offsetRef.current += (22.5 - offsetRef.current) / 10;
       }

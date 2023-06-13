@@ -10,30 +10,48 @@ function Header() {
   const [scrollDirection, setScrollDirection] = useState(null);
 
   const workSectionEl = document.getElementById("workSectionContainer");
+  const aboutSectionEl = document.getElementById("aboutSectionContainer");
 
   const navigateToStart = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const navigateToWork = () => {
-    const workSectionTop =
-      workSectionEl.getBoundingClientRect().top + window.pageYOffset + yOffset;
-    window.scrollTo({ top: workSectionTop, behavior: "smooth" });
+    const sectionTop =
+      workSectionEl.getBoundingClientRect().top + window.scrollY + yOffset;
+    window.scrollTo({ top: sectionTop, behavior: "smooth" });
   };
 
+  const navigateToAbout = () => {
+    const sectionTop =
+      aboutSectionEl.getBoundingClientRect().top + window.scrollY + yOffset;
+    window.scrollTo({ top: sectionTop, behavior: "smooth" });
+  };
+
+  const navigateToContact = () => {};
+
   useEffect(() => {
-    let lastScrollY = window.pageYOffset;
+    let lastScrollY = window.scrollY;
 
     const updateScrollDirection = () => {
-      const scrollY = window.pageYOffset;
+      const scrollY = window.scrollY;
 
-      if (workSectionEl) {
-        const workSectionTop =
-          workSectionEl.getBoundingClientRect().top + scrollY + yOffset;
-        if (scrollY < workSectionTop) {
+      if (workSectionEl && aboutSectionEl) {
+        if (
+          scrollY <
+          workSectionEl.getBoundingClientRect().top + scrollY + yOffset
+        ) {
           setSelectedSection("Start");
-        } else if (scrollY >= workSectionTop) {
+        } else if (
+          scrollY >=
+          workSectionEl.getBoundingClientRect().top + scrollY + yOffset
+        ) {
           setSelectedSection("Work");
+        } else if (
+          scrollY >=
+          aboutSectionEl.getBoundingClientRect().top + scrollY + yOffset
+        ) {
+          setSelectedSection("About");
         }
       }
 
@@ -91,7 +109,14 @@ function Header() {
             <span className="greaterThan">{">"}</span>
           </span>
         </div>
-        <div>
+        <div
+          style={
+            selectedSection == "About"
+              ? { color: "#f9f9f9" }
+              : { color: "rgb(179, 175, 175)" }
+          }
+          onClick={navigateToAbout}
+        >
           About{" "}
           <span className="htmlClosing">
             <span>/</span>

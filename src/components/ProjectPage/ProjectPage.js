@@ -1,22 +1,28 @@
-import React from "react";
+import { useEffect, useRef } from "react";
 import "./ProjectPage.scss";
 import { useDispatch } from "react-redux";
 import { setVariant, reset } from "../../redux/cursor";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Projects from "../../projects.json";
 
 function ProjectPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const visitBackgroundRef = useRef();
   const params = useParams();
   const title = params.id;
+  let num = null;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div>
       <div className="leftSideView">
         {Projects[title].images.map((imgSrc, index) => {
-          console.log(imgSrc)
           return <img key={index} src={imgSrc} alt=""></img>;
         })}
       </div>
@@ -31,6 +37,7 @@ function ProjectPage() {
               dispatch(reset());
             }}
             onClick={() => {
+              dispatch(reset());
               navigate("/");
             }}
           ></div>
@@ -45,17 +52,32 @@ function ProjectPage() {
           </div>
           <h1 className="projectTitle">{title}</h1>
           <p className="projectDesc">{Projects[title].desc}</p>
-          <div
-            className="visitBtn"
-            onMouseEnter={() => {
-              dispatch(setVariant("hover"));
-            }}
-            onMouseLeave={() => {
-              dispatch(reset());
-            }}
-          >
-            Visit
+          <div className="visitBtnContainer">
+            <div ref={visitBackgroundRef} className="visitBtnBackground"></div>
+            <Link to={Projects[title].link} target={"_blank"}>
+              <div
+                className="visitBtn"
+                onMouseEnter={() => {
+                  dispatch(setVariant("hover"));
+                  visitBackgroundRef.current.style.backgroundPosition = "100%";
+                  visitBackgroundRef.current.style.transform = "scale(1.2)";
+                }}
+                onMouseLeave={() => {
+                  dispatch(reset());
+                  visitBackgroundRef.current.style.backgroundPosition = "0%";
+                  visitBackgroundRef.current.style.transform = "scale(1)";
+                }}
+              >
+                Visit
+              </div>
+            </Link>
           </div>
+        </div>
+        <div className="numLine">
+          {Object.keys(Projects).forEach((value, index) => {
+            if (value === title) num = index;
+          })}
+          <span>0{num}</span>
         </div>
       </div>
     </div>

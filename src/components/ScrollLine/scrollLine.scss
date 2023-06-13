@@ -8,7 +8,8 @@
 }
 
 .sectionContainer {
-  position: absolute;
+  position: relative;
+  width: 80vw;
 }
 
 .sectionCircle {
@@ -30,23 +31,6 @@
   justify-content: space-around;
 }
 
-#startSectionContent {
-  h1 {
-    margin-top: 0px;
-    margin-bottom: 15px;
-    font-weight: 900;
-    font-size: 40px;
-    span {
-      color: purple;
-    }
-  }
-  h2 {
-    color: rgb(179, 175, 175);
-    font-weight: normal;
-    font-size: 20px;
-  }
-}
-
 .subSectionName {
   position: absolute;
   left: 35px;
@@ -65,4 +49,28 @@
     line-height: 19px;
     position: absolute;
   } 
+}
+
+#startSectionContainer {
+  height: 700px;
+  #startSectionContent {
+    h1 {
+      margin-top: 0px;
+      margin-bottom: 15px;
+      font-weight: 900;
+      font-size: 40px;
+      span {
+        color: purple;
+      }
+    }
+    h2 {
+      color: rgb(179, 175, 175);
+      font-weight: normal;
+      font-size: 20px;
+    }
+  }
+}
+
+#workSectionContainer {
+  margin-bottom: 200px;
 }
