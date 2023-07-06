@@ -1,34 +1,73 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./Header.scss";
 import { useDispatch } from "react-redux";
 import { setVariant, reset } from "../../redux/cursor";
 
+/**
+ * Native scrollTo with callback
+ * @param offset - offset to scroll to
+ * @param callback - callback function
+ */
+function scrollTo(offset, callback = () => {}) {
+  const fixedOffset = offset.toFixed();
+  const onScroll = () => {
+    if (window.scrollY.toFixed() === fixedOffset) {
+      window.removeEventListener("scroll", onScroll);
+      callback();
+    }
+  };
+
+  window.addEventListener("scroll", onScroll);
+  onScroll();
+  window.scrollTo({
+    top: offset,
+    behavior: "smooth",
+  });
+}
+
 function Header() {
+  const body = document.body;
+  const html = document.documentElement;
   const dispatch = useDispatch();
   const yOffset = -30;
+  const burgerRef = useRef();
   const [selectedSection, setSelectedSection] = useState("Start");
   const [scrollDirection, setScrollDirection] = useState(null);
+  const [dropdownHeader, setDropdownHeader] = useState(false);
 
   const workSectionEl = document.getElementById("workSectionContainer");
   const aboutSectionEl = document.getElementById("aboutSectionContainer");
+  const contactSectionEl = document.getElementById("contactSectionContainer");
 
   const navigateToStart = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollTo(0);
+    setDropdownHeader(false);
   };
 
   const navigateToWork = () => {
     const sectionTop =
       workSectionEl.getBoundingClientRect().top + window.scrollY + yOffset;
-    window.scrollTo({ top: sectionTop, behavior: "smooth" });
+    scrollTo(sectionTop + 2);
+    setDropdownHeader(false);
   };
 
   const navigateToAbout = () => {
     const sectionTop =
       aboutSectionEl.getBoundingClientRect().top + window.scrollY + yOffset;
-    window.scrollTo({ top: sectionTop, behavior: "smooth" });
+    scrollTo(sectionTop + 2);
+    setDropdownHeader(false);
   };
 
-  const navigateToContact = () => {};
+  const navigateToContact = () => {
+    const sectionTop =
+      contactSectionEl.getBoundingClientRect().top + window.scrollY + yOffset;
+    scrollTo(sectionTop + 2);
+    setDropdownHeader(false);
+  };
+
+  useEffect(() => {
+    burgerRef.current.classList.toggle("change");
+  }, [dropdownHeader]);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -44,14 +83,35 @@ function Header() {
           setSelectedSection("Start");
         } else if (
           scrollY >=
-          workSectionEl.getBoundingClientRect().top + scrollY + yOffset
+            workSectionEl.getBoundingClientRect().top + scrollY + yOffset &&
+          scrollY <
+            aboutSectionEl.getBoundingClientRect().top + scrollY + yOffset
         ) {
           setSelectedSection("Work");
         } else if (
           scrollY >=
-          aboutSectionEl.getBoundingClientRect().top + scrollY + yOffset
+            aboutSectionEl.getBoundingClientRect().top + scrollY + yOffset &&
+          window.innerHeight + Math.round(window.scrollY) + 100 <=
+            Math.max(
+              body.scrollHeight,
+              body.offsetHeight,
+              html.clientHeight,
+              html.scrollHeight,
+              html.offsetHeight
+            )
         ) {
           setSelectedSection("About");
+        } else if (
+          window.innerHeight + Math.round(window.scrollY) + 100 >=
+          Math.max(
+            body.scrollHeight,
+            body.offsetHeight,
+            html.clientHeight,
+            html.scrollHeight,
+            html.offsetHeight
+          )
+        ) {
+          setSelectedSection("Contact");
         }
       }
 
@@ -69,8 +129,29 @@ function Header() {
     <div
       id="header"
       className="header"
-      style={{ top: scrollDirection == "down" ? "-40px" : "0px" }}
+      style={{
+        top:
+          window.innerWidth > 800 && scrollDirection == "down" ? "-55px" : "0px",
+        height: window.innerWidth < 800 ? dropdownHeader ? "280px" : "0px" : "55px",
+      }}
     >
+      <div
+        ref={burgerRef}
+        onMouseEnter={() => {
+          dispatch(setVariant("hover"));
+        }}
+        onMouseLeave={() => {
+          dispatch(reset());
+        }}
+        onClick={() => {
+          setDropdownHeader(!dropdownHeader);
+        }}
+        className="burgerBtn"
+      >
+        <div className="bar1"></div>
+        <div className="bar2"></div>
+        <div className="bar3"></div>
+      </div>
       <div className="headerShade"></div>
       <div
         onMouseEnter={() => {
@@ -80,6 +161,9 @@ function Header() {
           dispatch(reset());
         }}
         className="linkContainer"
+        style={{
+          top: window.innerWidth < 800 ? dropdownHeader ? "120px" : "-120px" : "0px",
+        }}
       >
         <div
           style={
@@ -123,7 +207,14 @@ function Header() {
             <span className="greaterThan">{">"}</span>
           </span>
         </div>
-        <div>
+        <div
+          style={
+            selectedSection == "Contact"
+              ? { color: "#f9f9f9" }
+              : { color: "rgb(179, 175, 175)" }
+          }
+          onClick={navigateToContact}
+        >
           Contact{" "}
           <span className="htmlClosing">
             <span>/</span>

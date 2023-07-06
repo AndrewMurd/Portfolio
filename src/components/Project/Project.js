@@ -81,6 +81,7 @@ function Project({ title, img, num }) {
   };
 
   const handleScroll = () => {
+    if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     if (
       rect.top - window.innerHeight + initOffset <= 0 &&

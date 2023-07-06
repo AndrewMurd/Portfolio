@@ -7,10 +7,27 @@
   margin-right: 12px;
 }
 
+.codeLineContainer {
+  position: relative;
+  left: calc(-20vw - 30px);
+  width: 100vw;
+  height: auto;
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  &:hover {
+    border-bottom: 1px solid rgba($color: grey, $alpha: 0.5);
+    border-top: 1px solid rgba($color: grey, $alpha: 0.5);
+  }
+}
+
 .codeLine {
-  margin-top: 5px;
+  position: relative;
+  left: calc(20vw + 30px);
+  padding-top: 2.5px;
+  padding-bottom: 2.5px;
   display: flex;
   flex-wrap: wrap;
+  width: calc(70vw + 30px);
   .lineNum {
     color: grey;
     font-weight: 100;
@@ -74,5 +91,59 @@
   }
   100% {
     opacity: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .class {
+    font-family: Consolas;
+    font-size: 2.5vw;
+  }
+
+  .dot {
+    color: grey;
+    line-height: 1.5vw;
+    margin-left: 4px;
+    margin-right: 4px;
+    font-size: 2vw;
+  }
+
+  .codeLineContainer {
+    position: relative;
+    left: calc(-8vw - 30px);
+    width: 100vw;
+    height: auto;
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    &:hover {
+      border-bottom: 1px solid rgba($color: grey, $alpha: 0.5);
+      border-top: 1px solid rgba($color: grey, $alpha: 0.5);
+    }
+  }
+
+  .codeLine {
+    position: relative;
+    left: calc(8vw + 30px);
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(75vw + 30px);
+    .lineNum {
+      color: grey;
+      font-weight: 100;
+      left: calc(-5vw - 25px);
+      position: absolute;
+    }
+  }
+
+  .flashingCursor {
+    position: absolute;
+    margin-left: 5px;
+    margin-top: 3px;
+    background-color: var(--fontColor);
+    height: 2vw;
+    width: 1.5px;
+    animation: flashingCursor 0.9s ease infinite;
   }
 }

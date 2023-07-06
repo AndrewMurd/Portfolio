@@ -91,3 +91,17 @@
   width: 50px;
   border: solid 2px #f9f9f9;
 }
+
+@media (hover: none) {
+  * {
+    cursor: auto;
+  }
+
+  .insideCircle {
+    display: none;
+  }
+  
+  .outsideCircle {
+    display: none;
+  }
+}

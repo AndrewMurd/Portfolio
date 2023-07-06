@@ -85,6 +85,25 @@ function ScrollLine() {
           </div>
         </div>
       </div>
+      <div
+        id="contactSectionContainer"
+        className="sectionContainer"
+      >
+        <div className="sectionCircle">
+          <span>
+            <div className="subSectionName">
+              Contact{" "}
+              <span className="htmlClosingSection">
+                <span>/</span>
+                <span className="greaterThanSection">{">"}</span>
+              </span>
+            </div>
+          </span>
+          <div className="sectionContent">
+  
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

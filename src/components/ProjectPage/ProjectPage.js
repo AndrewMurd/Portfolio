@@ -20,12 +20,7 @@ function ProjectPage() {
   }, []);
 
   return (
-    <div>
-      <div className="leftSideView">
-        {Projects[title].images.map((imgSrc, index) => {
-          return <img key={index} src={imgSrc} alt=""></img>;
-        })}
-      </div>
+    <div className="projectPageContainer">
       <div className="rightSideView">
         <div className="metaDataProjectPage">
           <div
@@ -79,6 +74,11 @@ function ProjectPage() {
           })}
           <span>0{num}</span>
         </div>
+      </div>
+      <div className="leftSideView">
+        {Projects[title].images.map((imgSrc, index) => {
+          return <img key={index} src={imgSrc} alt=""></img>;
+        })}
       </div>
     </div>
   );

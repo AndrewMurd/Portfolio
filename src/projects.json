@@ -10,7 +10,7 @@
       "/assets/MyGolfr/MyGolfr3.png",
       "/assets/MyGolfr/MyGolfr4.png"
     ],
-    "desc": "Golf Tracking App. Enables users to keep tabs on their golf statistics and handicap index. Uses google maps for gps location and display of all golf courses in the world.",
+    "desc": "Golf Tracking App. Enables users to keep tabs on their golf statistics and handicap index. Uses google maps for gps location and display of golf courses across the world.",
     "stack": [
       "Angular",
       "Typescript",
@@ -29,7 +29,7 @@
       "/assets/AmazonClone/2.png",
       "/assets/AmazonClone/3.png"
     ],
-    "desc": "E-Commerce Website with themes inspired by Amazon.com",
+    "desc": "E-Commerce website with themes inspired by Amazon.com",
     "stack": [
       "React",
       "JS",

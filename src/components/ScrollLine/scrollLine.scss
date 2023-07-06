@@ -2,7 +2,7 @@
   position: absolute;
   top: 350px;
   left: 20%;
-  height: 2000px;
+  height: auto;
   width: 1px;
   background-color: pink;
 }
@@ -52,7 +52,7 @@
 }
 
 #startSectionContainer {
-  height: 700px;
+  height: 65vh;
   #startSectionContent {
     h1 {
       margin-top: 0px;
@@ -73,4 +73,76 @@
 
 #workSectionContainer {
   margin-bottom: 200px;
+}
+
+#aboutSectionContainer {
+  height: 780px;
+}
+
+#contactSectionContainer {
+  height: 700px;
+}
+
+@media (max-width: 900px) {
+  #aboutSectionContainer {
+    height: 120vw;
+  }
+
+  .scrollLine {
+    position: absolute;
+    top: 350px;
+    left: 8%;
+    height: auto;
+    width: 1px;
+    background-color: pink;
+  }
+
+  .subSectionName {
+    position: absolute;
+    left: 25px;
+    top: -3px;
+    display: flex;
+    color: rgb(179, 175, 175);
+    font-size: 15px;
+  }
+  
+  .htmlClosingSection {
+    transform: scale(1, 1.25);
+    margin-left: 5px;
+    color: rgb(179, 175, 175);
+    .greaterThanSection {
+      margin-left: 2px;
+      font-size: 15px;
+      line-height: 19px;
+      position: absolute;
+    } 
+  }
+
+  .sectionContent {
+    position: relative;
+    left: 25px;
+    top: 50px;
+    width: 70vw;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  #startSectionContainer {
+    #startSectionContent {
+      h1 {
+        margin-top: 0px;
+        margin-bottom: 15px;
+        font-weight: 900;
+        font-size: 4.6vw;
+        span {
+          color: purple;
+        }
+      }
+      h2 {
+        color: rgb(179, 175, 175);
+        font-weight: normal;
+        font-size: 3.6vw;
+      }
+    }
+  }
 }
