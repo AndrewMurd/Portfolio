@@ -5,6 +5,58 @@
   height: auto;
   width: 1px;
   background-color: pink;
+  z-index: 0;
+}
+
+$textShadowColor: #160000;
+
+.scrollIndicator {
+  display: flex;
+  height: 100px;
+  width: 30px;
+  position: absolute;
+  top: 590px;
+  left: calc(20% - 15px);
+  z-index: 1;
+  svg {
+    position: absolute;
+    left: 6px;
+    background-color: rgba(20, 3, 3, 0.7);
+    height: 30px;
+    width: 19px;
+  }
+  h3 {
+    color: pink;
+    font-weight: normal;
+    font-size: 14px;
+    position: absolute;
+    transform: rotate(270deg);
+    top: 48px;
+    left: -11px;
+    text-shadow: 0 3px 14px $textShadowColor, 0 -3px 14px $textShadowColor,
+      3px 0 14px $textShadowColor, -3px 0 14px $textShadowColor,
+      0 3px 6px $textShadowColor, 0 -3px 6px $textShadowColor,
+      3px 0 6px $textShadowColor, -3px 0 6px $textShadowColor;
+  }
+  transition: all 0.2s;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.property {
+  svg {
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
+    top: 4px;
+  }
+  left: 20px;
+  bottom: 10px;
+  position: absolute;
+  width: 500px;
+  color: grey;
+  font-family: Consolas;
 }
 
 .sectionContainer {
@@ -48,17 +100,19 @@
     font-size: 15px;
     line-height: 19px;
     position: absolute;
-  } 
+  }
 }
 
 #startSectionContainer {
   height: 65vh;
   #startSectionContent {
     h1 {
+      display: inline-block;
       margin-top: 0px;
       margin-bottom: 15px;
-      font-weight: 900;
+      font-weight: bold;
       font-size: 40px;
+      transform: scaleX(0);
       span {
         color: purple;
       }
@@ -67,8 +121,13 @@
       color: rgb(179, 175, 175);
       font-weight: normal;
       font-size: 20px;
+      transform: scaleX(0);
     }
   }
+}
+
+#startTag {
+  transform: scaleX(0);
 }
 
 #workSectionContainer {
@@ -80,7 +139,86 @@
 }
 
 #contactSectionContainer {
-  height: 700px;
+  height: 500px;
+}
+
+// rgb(73, 0, 0)
+// #f1f1f1
+
+.textContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.coverAnimation {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  position: absolute;
+  animation: coverText 0.7s cubic-bezier(0.65, 0.05, 0.36, 1) forwards;
+  transform-origin: left;
+  z-index: 1;
+}
+
+.coverAnimation1 {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  position: absolute;
+  animation: coverText 0.9s cubic-bezier(0.65, 0.05, 0.36, 1) forwards;
+  transform-origin: left;
+  z-index: 1;
+}
+
+.coverAnimation2 {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  position: absolute;
+  animation: coverText 1.1s cubic-bezier(0.65, 0.05, 0.36, 1) forwards;
+  transform-origin: left;
+  z-index: 1;
+}
+
+.enterText {
+  animation: enter 0.01s cubic-bezier(0.65, 0.05, 0.36, 1) 0.35s forwards;
+  transform-origin: left;
+}
+
+.enterText1 {
+  animation: enter 0.2s cubic-bezier(0.65, 0.05, 0.36, 1) 0.35s forwards;
+  transform-origin: left;
+}
+
+.block {
+  display: block;
+}
+
+#line0 {
+}
+
+@keyframes coverText {
+  0% {
+    left: 0;
+    transform: scaleX(0);
+  }
+  50% {
+    left: 0;
+    transform: scaleX(1);
+  }
+  100% {
+    left: 100%;
+    transform: scaleX(0);
+  }
+}
+
+@keyframes enter {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
 }
 
 @media (max-width: 900px) {
@@ -97,6 +235,60 @@
     background-color: pink;
   }
 
+  .scrollIndicator {
+    transform: scale(0.75);
+  }
+
+  .property {
+    font-size: 10px;
+    svg {
+      position: relative;
+      margin-left: 5px;
+      margin-right: 5px;
+      top: 4px;
+    }
+    left: 20px;
+    bottom: 10px;
+    position: absolute;
+    width: 500px;
+    color: grey;
+    font-family: Consolas;
+  }
+
+  .scrollIndicator {
+    display: flex;
+    height: 100px;
+    width: 30px;
+    position: absolute;
+    top: 590px;
+    left: calc(8% - 15px);
+    z-index: 1;
+    svg {
+      position: absolute;
+      left: 6px;
+      background-color: rgba(20, 3, 3, 0.7);
+      height: 30px;
+      width: 19px;
+    }
+    h3 {
+      color: pink;
+      font-weight: normal;
+      font-size: 14px;
+      position: absolute;
+      transform: rotate(270deg);
+      top: 48px;
+      left: -11px;
+      text-shadow: 0 3px 14px $textShadowColor, 0 -3px 14px $textShadowColor,
+        3px 0 14px $textShadowColor, -3px 0 14px $textShadowColor,
+        0 3px 6px $textShadowColor, 0 -3px 6px $textShadowColor,
+        3px 0 6px $textShadowColor, -3px 0 6px $textShadowColor;
+    }
+    transition: all 0.2s;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
   .subSectionName {
     position: absolute;
     left: 25px;
@@ -105,7 +297,7 @@
     color: rgb(179, 175, 175);
     font-size: 15px;
   }
-  
+
   .htmlClosingSection {
     transform: scale(1, 1.25);
     margin-left: 5px;
@@ -115,7 +307,7 @@
       font-size: 15px;
       line-height: 19px;
       position: absolute;
-    } 
+    }
   }
 
   .sectionContent {

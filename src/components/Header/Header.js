@@ -2,28 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import "./Header.scss";
 import { useDispatch } from "react-redux";
 import { setVariant, reset } from "../../redux/cursor";
-
-/**
- * Native scrollTo with callback
- * @param offset - offset to scroll to
- * @param callback - callback function
- */
-function scrollTo(offset, callback = () => {}) {
-  const fixedOffset = offset.toFixed();
-  const onScroll = () => {
-    if (window.scrollY.toFixed() === fixedOffset) {
-      window.removeEventListener("scroll", onScroll);
-      callback();
-    }
-  };
-
-  window.addEventListener("scroll", onScroll);
-  onScroll();
-  window.scrollTo({
-    top: offset,
-    behavior: "smooth",
-  });
-}
+import { scrollTo } from "../../utils/functions";
 
 function Header() {
   const body = document.body;
@@ -135,6 +114,7 @@ function Header() {
         height: window.innerWidth < 800 ? dropdownHeader ? "280px" : "0px" : "55px",
       }}
     >
+      <img className="signature" src="signature.png" onClick={navigateToStart}></img>
       <div
         ref={burgerRef}
         onMouseEnter={() => {

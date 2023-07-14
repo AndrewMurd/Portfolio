@@ -1,11 +1,21 @@
 $height: 50px;
 
+.signature {
+  height: 35px;
+  margin-left: 20px;
+  margin-top: 5px;
+  transition: all 0.2s;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
 .header {
   position: fixed;
   height: calc($height + 5px);
   top: 0px;
   transition: top 0.3s, height 0.5s;
-  z-index: 1;
+  z-index: 100;
   width: 100vw;
   color: #f9f9f9;
 }
@@ -44,7 +54,7 @@ $height: 50px;
     padding-left: 15px;
     padding-right: 15px;
     &:hover {
-      color: #f9f9f9 !important;
+      color: #dbdada !important;
     }
   }
 }

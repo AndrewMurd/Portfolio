@@ -89,7 +89,8 @@ function About() {
           <span>.</span>
           <span className="lightBlueFont space">hobby</span>
           <span className="space">=</span>
-          <span className="orangeFont">{"'golf'"}</span>
+          {/* <span className="orangeFont">{"'golf'"}</span> */}
+          <span className="orangeFont">{"'debugging'"}</span>
           <span>;</span>
         </div>
       </div>
