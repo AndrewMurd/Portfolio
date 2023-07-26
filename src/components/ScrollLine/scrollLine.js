@@ -113,7 +113,7 @@ function ScrollLine() {
                   style={{ background: "rgb(73, 0, 0)" }}
                 ></div>
                 <h1 className={line2AnimState ? "enterText" : ""}>
-                  i design and develop web apps
+                  i design and develop software
                 </h1>
               </div>
             </div>
