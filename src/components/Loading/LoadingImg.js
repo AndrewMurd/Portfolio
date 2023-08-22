@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./LoadingImg.scss";
 
-function LoadingImg({ img, isInit, animationState }) {
+function LoadingImg({ img, isInit, animationState, isLoaded }) {
   const [loadedImg, setLoadedImg] = useState(false);
 
   return (
@@ -14,6 +14,7 @@ function LoadingImg({ img, isInit, animationState }) {
         src={img}
         onLoad={() => {
           setLoadedImg(true);
+          isLoaded();
         }}
         alt=""
       ></img>

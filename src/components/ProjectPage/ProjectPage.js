@@ -80,7 +80,7 @@ function ProjectPage() {
       <div className="leftSideView">
         {Projects[title].images.map((imgSrc, index) => {
           return (
-            <LoadingImg img={imgSrc} isInit={true}></LoadingImg>
+            <LoadingImg img={imgSrc} isInit={true} isLoaded={() => {}}></LoadingImg>
           );
         })}
       </div>
