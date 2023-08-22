@@ -5,6 +5,8 @@ import { startCoverAnimation, resetAnimState } from "../../redux/animation";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import LoadingImg from "../Loading/LoadingImg";
+
 function Project({ title, img, num }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,6 +18,7 @@ function Project({ title, img, num }) {
   const transitionSpeed = 300;
   const initOffset = 100;
   const [animationState, setAnimationState] = useState(false);
+  const [loadedImg, setLoadedImg] = useState(false);
   const [isInit, setIsInit] = useState(false);
 
   const handleMouseEnter = (e) => {
@@ -68,7 +71,7 @@ function Project({ title, img, num }) {
   };
 
   const handleMouseClick = () => {
-    localStorage.setItem('homeScrollPos', window.scrollY);
+    localStorage.setItem("homeScrollPos", window.scrollY);
     setAnimationState(true);
     setTimeout(() => {
       dispatch(startCoverAnimation());
@@ -121,7 +124,7 @@ function Project({ title, img, num }) {
         <div
           ref={shadeRef}
           className={
-            isInit
+            isInit && loadedImg
               ? animationState
                 ? "shade exitImg"
                 : " shade enterImg"
@@ -138,13 +141,9 @@ function Project({ title, img, num }) {
             <div className="belowDivider">{num}</div>
           </div>
         </div>
-        <img
-          className={
-            isInit ? (animationState ? "exitImg" : "enterImg") : "initState"
-          }
-          src={img}
-          alt=""
-        ></img>
+        <LoadingImg img={img} isInit={isInit} animationState={animationState} isLoaded={() => {
+          setLoadedImg(true)
+        }}></LoadingImg>
       </div>
     </div>
   );

@@ -13,6 +13,7 @@ function Header() {
   const [selectedSection, setSelectedSection] = useState("Start");
   const [scrollDirection, setScrollDirection] = useState(null);
   const [dropdownHeader, setDropdownHeader] = useState(false);
+  const [shade, setShade] = useState(false);
 
   const workSectionEl = document.getElementById("workSectionContainer");
   const aboutSectionEl = document.getElementById("aboutSectionContainer");
@@ -53,6 +54,12 @@ function Header() {
 
     const updateScrollDirection = () => {
       const scrollY = window.scrollY;
+
+      if (scrollY == 0) {
+        setShade(false);
+      } else {
+        setShade(true);
+      }
 
       if (workSectionEl && aboutSectionEl) {
         if (
@@ -109,12 +116,16 @@ function Header() {
       id="header"
       className="header"
       style={{
-        top:
-          window.innerWidth > 800 && scrollDirection == "down" ? "-55px" : "0px",
-        height: window.innerWidth < 800 ? dropdownHeader ? "280px" : "0px" : "55px",
+        top: !dropdownHeader && scrollDirection == "down" ? "-55px" : "0px",
+        height:
+          window.innerWidth < 800 ? (dropdownHeader ? "280px" : "0px") : "55px",
       }}
     >
-      <img className="signature" src="signature.png" onClick={navigateToStart}></img>
+      <img
+        className="signature"
+        src="signature.png"
+        onClick={navigateToStart}
+      ></img>
       <div
         ref={burgerRef}
         onMouseEnter={() => {
@@ -132,7 +143,10 @@ function Header() {
         <div className="bar2"></div>
         <div className="bar3"></div>
       </div>
-      <div className="headerShade"></div>
+      <div
+        className="headerShade"
+        style={{ top: shade || dropdownHeader ? "0px" : "-40px" }}
+      ></div>
       <div
         onMouseEnter={() => {
           dispatch(setVariant("hover"));
@@ -142,7 +156,12 @@ function Header() {
         }}
         className="linkContainer"
         style={{
-          top: window.innerWidth < 800 ? dropdownHeader ? "120px" : "-120px" : "0px",
+          top:
+            window.innerWidth < 800
+              ? dropdownHeader
+                ? "120px"
+                : "-120px"
+              : "0px",
         }}
       >
         <div

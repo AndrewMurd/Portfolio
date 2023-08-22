@@ -84,6 +84,7 @@ function ScrollLine() {
           id="startSectionContainer"
           className="sectionContainer"
         >
+
           <div className="sectionCircle"></div>
           <span>
             <div className="subSectionName enterText">

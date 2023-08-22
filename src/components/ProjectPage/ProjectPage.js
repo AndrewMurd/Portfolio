@@ -5,7 +5,9 @@ import { setVariant, reset } from "../../redux/cursor";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 import Projects from "../../projects.json";
+import LoadingImg from "../Loading/LoadingImg";
 
 function ProjectPage() {
   const dispatch = useDispatch();
@@ -77,7 +79,9 @@ function ProjectPage() {
       </div>
       <div className="leftSideView">
         {Projects[title].images.map((imgSrc, index) => {
-          return <img key={index} src={imgSrc} alt=""></img>;
+          return (
+            <LoadingImg img={imgSrc} isInit={true}></LoadingImg>
+          );
         })}
       </div>
     </div>
