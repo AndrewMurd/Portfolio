@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import "./scrollLine.scss";
 import { setVariant, reset } from "../../redux/cursor";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { scrollTo } from "../../utils/functions";
+import { setScroll } from "../../redux/scroll";
 
 import Project from "../Project/Project";
 import About from "../AboutSection/About";
@@ -10,6 +11,7 @@ import Contact from "../ContactSection/Contact";
 import Projects from "../../projects.json";
 
 function ScrollLine() {
+  const { scroll } = useSelector((state) => state.scroll);
   const dispatch = useDispatch();
   var projectArr = [];
   const startSectionRef = useRef();
@@ -39,7 +41,7 @@ function ScrollLine() {
   };
 
   useEffect(() => {
-    window.scrollTo(0, localStorage.getItem("homeScrollPos"));
+    window.scrollTo(0, scroll);
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => {
@@ -84,7 +86,6 @@ function ScrollLine() {
           id="startSectionContainer"
           className="sectionContainer"
         >
-
           <div className="sectionCircle"></div>
           <span>
             <div className="subSectionName enterText">

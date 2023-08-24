@@ -19,10 +19,6 @@ function App() {
   let endX = useRef(0);
   let endY = useRef(0);
 
-  window.onbeforeunload = () => {
-    localStorage.removeItem('homeScrollPos')
-  }
-
   const mouseMoveHandler = ({ clientX, clientY }) => {
     setCoords({ x: clientX, y: clientY });
     cursorInnerRef.current.style.top = clientY + "px";
@@ -199,7 +195,6 @@ bgImg.src = bgURL;
         "ontouchstart" in document.documentElement &&
         window.DeviceOrientationEvent
       ) {
-        console.log("Using device orientation");
         window.addEventListener(
           "deviceorientation",
           function (e) {

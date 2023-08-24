@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./Projects.scss";
 import { setVariant, reset } from "../../redux/cursor";
+import { setScroll } from "../../redux/scroll";
 import { startCoverAnimation, resetAnimState } from "../../redux/animation";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -71,7 +72,7 @@ function Project({ title, img, num }) {
   };
 
   const handleMouseClick = () => {
-    localStorage.setItem("homeScrollPos", window.scrollY);
+    dispatch(setScroll(window.scrollY));
     setAnimationState(true);
     setTimeout(() => {
       dispatch(startCoverAnimation());

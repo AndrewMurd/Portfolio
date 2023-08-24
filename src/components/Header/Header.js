@@ -46,7 +46,11 @@ function Header() {
   };
 
   useEffect(() => {
-    burgerRef.current.classList.toggle("change");
+    if (dropdownHeader) {
+      burgerRef.current.classList.add("change");
+    } else {
+      burgerRef.current.classList.remove("change");
+    }
   }, [dropdownHeader]);
 
   useEffect(() => {

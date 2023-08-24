@@ -148,6 +148,7 @@ $textShadowColor: #160000;
 .textContainer {
   position: relative;
   display: inline-block;
+  overflow: hidden;
 }
 
 .coverAnimation {
@@ -194,21 +195,18 @@ $textShadowColor: #160000;
   display: block;
 }
 
-#line0 {
-}
-
 @keyframes coverText {
   0% {
-    left: 0;
-    transform: scaleX(0);
+    left: -100%;
+    transform: scaleX(1);
   }
   50% {
-    left: 0;
+    left: 0px;
     transform: scaleX(1);
   }
   100% {
     left: 100%;
-    transform: scaleX(0);
+    transform: scaleX(1);
   }
 }
 
